@@ -1,0 +1,66 @@
+﻿<UserControl x:Name="userControl" x:Class="NeonTextExample.NeonText"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NeonTextExample"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Text"
+                    Value="{Binding Text, ElementName=userControl}" />
+            <Setter Property="FontSize"
+                    Value="{Binding FontSize, ElementName=userControl}" />
+            <Setter Property="FontFamily"
+                    Value="{Binding FontFamily, ElementName=userControl}" />
+            <Setter Property="Foreground"
+                    Value="{Binding Foreground, ElementName=userControl}" />
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard x:Name="animation">
+                            <Storyboard>
+                                <DoubleAnimation From="0.5"
+                                                 To="1.0"
+                                                 Storyboard.TargetProperty="(Effect).Opacity"
+                                                 Duration="00:00:02"
+                                                 RepeatBehavior="Forever"
+                                                 AutoReverse="True" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Unloaded">
+                    <EventTrigger.Actions>
+                        <StopStoryboard BeginStoryboardName="animation" />
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid HorizontalAlignment="Center"
+          VerticalAlignment="Center">
+        <TextBlock>
+            <TextBlock.Effect>
+                <DropShadowEffect BlurRadius="35"
+                                  Color="{Binding GlowedColor, ElementName=userControl}"
+                                  ShadowDepth="0" />
+            </TextBlock.Effect>
+        </TextBlock>
+        <TextBlock>
+            <TextBlock.Effect>
+                <DropShadowEffect BlurRadius="15"
+                                  Color="{Binding GlowedColor, ElementName=userControl}"
+                                  ShadowDepth="0" />
+            </TextBlock.Effect>
+        </TextBlock>
+        <TextBlock>
+            <TextBlock.Effect>
+                <DropShadowEffect BlurRadius="5"
+                                  Color="White"
+                                  ShadowDepth="0" />
+            </TextBlock.Effect>
+        </TextBlock>
+    </Grid>
+</UserControl>
